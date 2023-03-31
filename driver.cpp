@@ -6,13 +6,16 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cstdint>
+#include <type_traits>
 
 using namespace std;
 
 void doMath(string operation, unsigned int num1, unsigned int num2);
 void doMathNotVersion(string operation, unsigned int num1);
 void readTxtFile(string fileName);
-void flagCheckerZ(unsigned int num1);
+bool flagCheckerZ(unsigned int num1);
+bool flagCheckerN(unsigned int num1);
 int main(int argc, char* argv[])
 {
     if (argc == 1)
@@ -69,87 +72,137 @@ void doMath(string operation, unsigned int num1, unsigned int num2)
 {
     unsigned int num3;
     signed int signedNum1;
+    bool nFlag, zFlag;
     if(operation == "ADD")
     {
         num3 = num1 + num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        //num3 = uintmax_t(num3);
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ADDS")
     {
         num3 = num1 + num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "AND")
     {
         num3 = num1 & num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ANDS")
     {
         num3 = num1 & num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ASR")
     {
         signedNum1 = num1;
         num3 = signedNum1 >> num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ASRS")
     {
         signedNum1 = num1;
         num3 = signedNum1 >> num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "LSR")
     {
         num3 = num1 >> num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "LSRS")
     {
         num3 = num1 >> num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "LSL")
     {
         num3 = num1 << num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "LSLS")
     {
         num3 = num1 << num2;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
         cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ORR")
     {
         num3 = num1 | num2;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "ORRS")
     {
         num3 = num1 | num2;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "SUB")
     {
         num3 = num1 - num3;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "SUBS")
     {
         num3 = num1 - num3;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "XOR")
     {
         num3 = num1 ^ num3;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else if(operation == "XORS")
     {
         num3 = num1 ^ num3;
-        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": " << num3 << endl;
+        nFlag = flagCheckerN(num3);
+        zFlag = flagCheckerZ(num3);
+        cout << operation << " Ox" << hex << num1 << " Ox" <<  num2 << ": Ox" << num3 << endl;
+        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
     else
     {
@@ -177,5 +230,27 @@ void doMathNotVersion(string operation, unsigned int num1)
 bool flagCheckerZ(unsigned int num1)
 {
     if (num1 == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false; 
+        //weiner
+    }
 
+}
+
+bool flagCheckerN(unsigned int num1)
+{
+    int num;
+    num = 1 + (num1 >> 31) - (-num1 >> 31);
+    if(num == 1 || num1 == 2)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
