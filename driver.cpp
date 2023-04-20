@@ -75,7 +75,7 @@ void doMath(string operation, int32_t registoryArray[], int positionArray[])
 {
     signed int signedNum1;
     bool nFlag, zFlag;
-    if(operation == "ADD")
+    if(operation == "ADDS")
     {
         registoryArray[positionArray[0]] = registoryArray[positionArray[1]] + registoryArray[positionArray[1]];
         nFlag = flagCheckerN(registoryArray[positionArray[0]]);
@@ -83,15 +83,7 @@ void doMath(string operation, int32_t registoryArray[], int positionArray[])
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
         cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
-    else if(operation == "ADDS")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] + registoryArray[positionArray[1]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "AND")
+    else if(operation == "ands")
     {
         registoryArray[positionArray[0]] = registoryArray[positionArray[1]] & registoryArray[positionArray[1]];
         nFlag = flagCheckerN(registoryArray[positionArray[0]]);
@@ -99,56 +91,13 @@ void doMath(string operation, int32_t registoryArray[], int positionArray[])
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
         cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
-    else if(operation == "ANDS")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] & registoryArray[positionArray[1]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "ASR")
-    {
-        signedNum1 = registoryArray[positionArray[1]];
-        registoryArray[positionArray[0]] = signedNum1 >> registoryArray[positionArray[2]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-
-    }
-    else if(operation == "ASRS")
-    {
-        signedNum1 = registoryArray[positionArray[1]];
-        registoryArray[positionArray[0]] = signedNum1 >> registoryArray[positionArray[2]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "LSR")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] << registoryArray[positionArray[2]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;;
-    }
-    else if(operation == "LSRS")
+    else if(operation == "lsrs")
     {
         registoryArray[positionArray[0]] = registoryArray[positionArray[1]] << registoryArray[positionArray[2]];
         nFlag = flagCheckerN(registoryArray[positionArray[0]]);
         zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
         cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "LSL")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] << registoryArray[positionArray[2]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;;
     }
     else if(operation == "LSLS")
     {
@@ -158,25 +107,9 @@ void doMath(string operation, int32_t registoryArray[], int positionArray[])
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
         cout << "N: " << nFlag <<  " Z: " << zFlag << endl;;
     }
-    else if(operation == "ORR")
+    else if(operation == "orr")
     {
         registoryArray[positionArray[0]] = registoryArray[positionArray[1]] | registoryArray[positionArray[1]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "ORRS")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] | registoryArray[positionArray[1]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "SUB")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] - registoryArray[positionArray[1]];
         nFlag = flagCheckerN(registoryArray[positionArray[0]]);
         zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
@@ -190,15 +123,7 @@ void doMath(string operation, int32_t registoryArray[], int positionArray[])
         cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
         cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
     }
-    else if(operation == "XOR")
-    {
-        registoryArray[positionArray[0]] = registoryArray[positionArray[1]] ^ registoryArray[positionArray[1]];
-        nFlag = flagCheckerN(registoryArray[positionArray[0]]);
-        zFlag = flagCheckerZ(registoryArray[positionArray[0]]);
-        cout << operation << " 0x" << hex << registoryArray[positionArray[1]] << " 0x" <<  registoryArray[positionArray[2]] << ": 0x" << registoryArray[positionArray[0]] << endl;
-        cout << "N: " << nFlag <<  " Z: " << zFlag << endl;
-    }
-    else if(operation == "XORS")
+    else if(operation == "xor")
     {
         registoryArray[positionArray[0]] = registoryArray[positionArray[1]] ^ registoryArray[positionArray[1]];
         nFlag = flagCheckerN(registoryArray[positionArray[0]]);
