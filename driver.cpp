@@ -13,7 +13,7 @@
 using namespace std;
 
 void doMath(string operation, int32_t registoryArray[], int position1, int position2,  int position3);
-//void readTxtFile(string fileName);
+void readTxtFile(string fileName);
 void flagChecker( int32_t registoryArray[], int position1, int position2,  int position3, long long int testNumber);
 void opperation(string operation, int32_t array[]);
 void displayArray(int32_t*);
@@ -34,16 +34,19 @@ int main()
     {
         while(!fin.eof())
         {
-                //stores the opperator
-                fin >> operationName;
-                //if operationName is Not then we only need one operand and skip the fin for hex number 2. Any other operation requires 2 operands.
-                if( (operationName == "MOV") || (operationName == "mov"))
-                {
+            //stores the opperator
+            fin >> operationName;
+            cout << "Operation Name: " << operationName << endl;
+            //if operationName is MOV then we only need one operand and skip the fin for hex number 2. Any other operation requires 2 operands.
+            if((operationName == "MOV") || (operationName == "mov"))
+            {
+                cout << "here1" << endl;
                 //stores the resgistory value as string then treats it as a character array and subtract 48 which is the ascii repersentation to get the proper intager position                                                                                                                                                                                 
                 fin >> storeValue;
+                //the string will be R1 for example so 1 is located at array element 1 thus we set our position 1 which repersents our store registory as a int value.
                 position1 = storeValue[1];
-                position1 -= 49;
-                //converts the hex values into decimal
+                position1 -= 48;
+                //This will take the number that will be loaded in our store registory
                 fin >> hex1;  
                 registoryArray[position1] = stoll(hex1,0,16);
                 cout << operationName << " " << storeValue << " " << "#" << hex1 << endl;
@@ -52,6 +55,7 @@ int main()
             }
             else
             {
+                cout << "Here 2" << endl;
                 fin >> storeValue;
                 position1 = storeValue[1];
                 position1 -= 48;
@@ -62,11 +66,11 @@ int main()
                 fin >> hex2;
                 position3 = hex2[1];
                 position3 -= 48;
-                //cout << "position one: " << position1 << endl;
-                //cout << "position two: " << position2 << endl;
-                //cout << "position three: " << position3 << endl;
-                doMath(operationName,registoryArray,position1 -1, position2 -1, position3 -1);
-                cout << operationName << " " << storeValue << " " << hex1 << " " << hex2 << endl;
+                cout << "position one: " << position1 << endl;
+                cout << "position two: " << position2 << endl;
+                cout << "position three: " << position3 << endl;
+                cout << "Operation Name: " << operationName << endl;
+                doMath(operationName, registoryArray, position1, position2, position3);
                 displayArray(registoryArray);
             }                 
         }
@@ -81,13 +85,15 @@ int main()
 
 void doMath(string operation, int32_t registoryArray[], int position1, int position2,  int position3)
 {
+    cout << operation << endl;
     long long int testNumber;
     signed int signedNum1;
-    bool nFlag, zFlag, cflag, vflag;
     if(operation == "ADD" || "add" || "ADDS" || "adds")
     {
+        cout << "we are in add" << endl;
         testNumber = registoryArray[position1] + registoryArray[position2];
         registoryArray[position1] = registoryArray[position2] + registoryArray[position3];
+        cout << registoryArray[position1] << endl;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
     else if(operation == "AND" || "and" || "ANDS" || "ands" )
@@ -139,7 +145,7 @@ void displayArray(int32_t array[])
     int spaceCounter = 0;
     for(int i = 0; i <= 7; i++)
     {
-        cout << "R" << (i+1) << ": 0x" << hex << array[i] <<  " ";
+        cout << "R" << (i) << ": 0x" << hex << array[i] <<  " ";
         spaceCounter++;
         if(spaceCounter >= 4)
         {
