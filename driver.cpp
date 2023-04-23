@@ -20,6 +20,7 @@ void displayArray(int32_t*);
 
 int main()
 {
+    CatGirl catGirl;
     string fname = "input.txt";
     int32_t num1, num2;
     int32_t registoryArray[8] = {0};
@@ -29,18 +30,17 @@ int main()
     int position1, position2, position3;
     //declares the input stream of the file                                                                                                                                                                            
     ifstream fin (fname.c_str());
-    //if the file is open the program proceds with the operation                                                                                                                                                       
+    //if the file is open the program proceds with the operation
+    catGirl.displayMenu();                                                                                                                                                 
     if(fin.is_open())
     {
         while(!fin.eof())
         {
             //stores the opperator
             fin >> operationName;
-            cout << "Operation Name: " << operationName << endl;
             //if operationName is MOV then we only need one operand and skip the fin for hex number 2. Any other operation requires 2 operands.
             if((operationName == "MOV") || (operationName == "mov"))
             {
-                cout << "here1" << endl;
                 //stores the resgistory value as string then treats it as a character array and subtract 48 which is the ascii repersentation to get the proper intager position                                                                                                                                                                                 
                 fin >> storeValue;
                 //the string will be R1 for example so 1 is located at array element 1 thus we set our position 1 which repersents our store registory as a int value.
@@ -55,7 +55,6 @@ int main()
             }
             else
             {
-                cout << "Here 2" << endl;
                 fin >> storeValue;
                 position1 = storeValue[1];
                 position1 -= 48;
@@ -66,10 +65,10 @@ int main()
                 fin >> hex2;
                 position3 = hex2[1];
                 position3 -= 48;
-                cout << "position one: " << position1 << endl;
-                cout << "position two: " << position2 << endl;
-                cout << "position three: " << position3 << endl;
-                cout << "Operation Name: " << operationName << endl;
+                //cout << "position one: " << position1 << endl;
+                //cout << "position two: " << position2 << endl;
+                //cout << "position three: " << position3 << endl;
+                //cout << "Operation Name: " << operationName << endl;
                 doMath(operationName, registoryArray, position1, position2, position3);
                 displayArray(registoryArray);
             }                 
@@ -88,7 +87,7 @@ void doMath(string operation, int32_t registoryArray[], int position1, int posit
     cout << operation << endl;
     long long int testNumber;
     signed int signedNum1;
-    if(operation == "ADD" || "add" || "ADDS" || "adds")
+    if((operation == "ADD") || (operation == "add") || (operation == "ADDS") || (operation == "adds"))
     {
         cout << "we are in add" << endl;
         testNumber = registoryArray[position1] + registoryArray[position2];
@@ -96,42 +95,48 @@ void doMath(string operation, int32_t registoryArray[], int position1, int posit
         cout << registoryArray[position1] << endl;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "AND" || "and" || "ANDS" || "ands" )
+    else if((operation == "AND") || (operation == "and") || (operation == "ANDS") || (operation == "ands"))
     {
         testNumber = registoryArray[position1] & registoryArray[position2];
         registoryArray[position1] = position2 & position3;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "ASR" || "asr" || "ASRS" || "asrs")
+    else if((operation == "ASR") || (operation == "asr") || (operation == "ASRS") || (operation == "asrs"))
     {
         signedNum1 = registoryArray[position1];
         registoryArray[position3] = signedNum1 >> registoryArray[position2];
         testNumber = signedNum1 >> registoryArray[position2];
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "LSR" || "lsr" || "LSRS" || "lsrs" )
+    else if((operation == "LSR") || (operation == "lsr") || (operation == "LSRS") || (operation == "lsrs"))
     {
         registoryArray[position1] = registoryArray[position2] >> registoryArray[position3];
     }
-    else if(operation == "LSL" || "lsl" || "LSLS" || "lsls")
+    else if((operation == "LSL") || (operation == "lsl") || (operation == "LSLS") || (operation == "lsls"))
     {
         registoryArray[position1] = registoryArray[position2] << registoryArray[position3];
         testNumber = registoryArray[position2] << registoryArray[position3];
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "ORR" || "orr" || "ORRS" || "orrs")
+    else if((operation == "ORR") || (operation == "orr") || (operation == "ORRS") || (operation == "orrs"))
     {
         registoryArray[position1] = registoryArray[position2] | registoryArray[position3];
         testNumber = 0;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "SUB" || "sub" || "SUBS" || "subs" )
+    else if((operation == "SUB") || (operation == "sub") || (operation == "SUBS") || (operation == "subs"))
     {
+        //cout << "because subs is broken we will do some investigation" << endl;
+        //cout << "position one: " << position1 << endl;
+        //cout << "position two: " << position2 << endl;
+        //cout << "position three: " << position3 << endl;
+        //cout << hex << registoryArray[position3] << " - " << registoryArray[position2] << endl;
         registoryArray[position1] = registoryArray[position2] - registoryArray[position3];
+        //cout << "this is our total: " << registoryArray[position1] << endl;
         testNumber = 0;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-    else if(operation == "XOR" || "xor" || "XORS" || "xors")
+    else if((operation == "XOR") || (operation == "xor") || (operation == "XORS") || (operation == "xors"))
     {
         registoryArray[position1] = registoryArray[position2] ^ registoryArray[position3];
         testNumber = 0;

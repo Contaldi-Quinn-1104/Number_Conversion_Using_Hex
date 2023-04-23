@@ -11,5 +11,6 @@ class CatGirl
     void displayMenu();
     void catgirlPic1();
     void angryFox();
+    void realCatgirl();
 };
 #endif
