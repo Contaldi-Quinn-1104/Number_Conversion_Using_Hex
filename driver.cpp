@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <type_traits>
 #include "CatGirl.h"
-
+#include  <bitset>
 using namespace std;
 
 void doMath(string operation, int32_t registoryArray[], int position1, int position2,  int position3);
@@ -34,7 +34,7 @@ int main()
     catGirl.displayMenu();                                                                                                                                                 
     if(fin.is_open())
     {
-        while(!fin.eof())
+        while(fin.good())
         {
             //stores the opperator
             fin >> operationName;
@@ -71,7 +71,7 @@ int main()
                 //cout << "Operation Name: " << operationName << endl;
                 doMath(operationName, registoryArray, position1, position2, position3);
                 displayArray(registoryArray);
-            }                 
+            }                
         }
     }
     else
@@ -98,7 +98,7 @@ void doMath(string operation, int32_t registoryArray[], int position1, int posit
     else if((operation == "AND") || (operation == "and") || (operation == "ANDS") || (operation == "ands"))
     {
         testNumber = registoryArray[position1] & registoryArray[position2];
-        registoryArray[position1] = position2 & position3;
+        registoryArray[position1] = registoryArray[position2] & registoryArray[position3];
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
     else if((operation == "ASR") || (operation == "asr") || (operation == "ASRS") || (operation == "asrs"))
@@ -110,12 +110,26 @@ void doMath(string operation, int32_t registoryArray[], int position1, int posit
     }
     else if((operation == "LSR") || (operation == "lsr") || (operation == "LSRS") || (operation == "lsrs"))
     {
-        registoryArray[position1] = registoryArray[position2] >> registoryArray[position3];
+        registoryArray[position1] = registoryArray[position2] >> position3;
     }
     else if((operation == "LSL") || (operation == "lsl") || (operation == "LSLS") || (operation == "lsls"))
     {
-        registoryArray[position1] = registoryArray[position2] << registoryArray[position3];
-        testNumber = registoryArray[position2] << registoryArray[position3];
+        bitset<8> bitset1, bitset2, bitset3;
+        cout << position1 << endl;
+        cout << position2 << endl;
+        cout << position3 << endl;
+        cout << registoryArray[position1] << endl;
+        cout << registoryArray[position2] << endl;
+        cout << registoryArray[position3] << endl;
+        bitset1 = registoryArray[position1];
+        bitset2 = registoryArray[position2];
+        bitset3 = registoryArray[position3];
+        cout << bitset1 << endl;
+        cout << bitset2 << endl;
+        cout << bitset3 << endl;
+        registoryArray[position1] = registoryArray[2] << 1;
+        cout << registoryArray[position1]; 
+        testNumber = registoryArray[position2] << position3;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
     else if((operation == "ORR") || (operation == "orr") || (operation == "ORRS") || (operation == "orrs"))
@@ -142,8 +156,6 @@ void doMath(string operation, int32_t registoryArray[], int position1, int posit
         testNumber = 0;
         flagChecker(registoryArray, position1, position2, position3, testNumber);
     }
-
-
 }
 void displayArray(int32_t array[])
 {

@@ -7,5 +7,5 @@ ands r0, r0, r4
 orr r0, r2, r3
 xor r5, r3, r4
 MOV R6, 0xFFFFFFFF
-lsrs R7, R6, #2
-LSLS R6, R7, #1
+lsrs R7, R6, 02;
+LSLS R6, R7, 01;
