@@ -9,10 +9,10 @@
 #include <cstdint>
 //#include <type_traits>
 #include "CatGirl.h"
-//#include  <bitset>
+#include  <bitset>
 using namespace std;
 
-doMath(string operation, uint32_t registoryArray[], int position1, int position2,  int position3, bool N, bool Z, bool C, bool V);
+void doMath(string operation, uint32_t registoryArray[], int position1, int position2,  int position3, bool &N, bool &Z, bool &C, bool &V);
 void readTxtFile(string fileName);
 void flagChecker( uint32_t registoryArray[], int position1, int position2,  int position3, long long int testNumber);
 void opperation(string operation, uint32_t array[]);
@@ -52,7 +52,7 @@ int main()
                 registoryArray[position1] = stoll(hex1,0,16);
                 cout << operationName << " " << storeValue << " " << "#" << hex1 << endl;
                 displayArray(registoryArray);
-                doMath(operationName,registoryArray,position1, position2, position3);
+                cout << "N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
             }
             else
             {
@@ -66,8 +66,9 @@ int main()
                 fin >> hex2;
                 position3 = hex2[1];
                 position3 -= 48;
-                doMath(operationName, registoryArray, position1, position2, position3);
+                doMath(operationName, registoryArray, position1, position2, position3, N, Z, C, V);
                 displayArray(registoryArray);
+                cout << "N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
             }                
         }
     }
@@ -79,7 +80,7 @@ int main()
 
 }
 
-void doMath(string operation, uint32_t registoryArray[], int position1, int position2,  int position3, bool N, bool Z, bool C, bool V)
+void doMath(string operation, uint32_t registoryArray[], int position1, int position2,  int position3, bool &N, bool &Z, bool &C, bool &V)
 {
     long int testNumber;
     signed int signedNum1;
@@ -104,7 +105,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             V = 1;
         else
             V = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "AND") || (operation == "and") || (operation == "ANDS") || (operation == "ands"))
     {
@@ -118,7 +118,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             Z = 1;
         else
             Z = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "ASR") || (operation == "asr") || (operation == "ASRS") || (operation == "asrs"))
     {
@@ -137,7 +136,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             C = 1;
         else
             C = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "LSR") || (operation == "lsr") || (operation == "LSRS") || (operation == "lsrs"))
     {
@@ -155,7 +153,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             C = 1;
         else
             C = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "LSL") || (operation == "lsl") || (operation == "LSLS") || (operation == "lsls"))
     {
@@ -172,10 +169,10 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             C = 1;
         else
             C = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "ORR") || (operation == "orr") || (operation == "ORRS") || (operation == "orrs"))
     {
+        bits<
         cout << operation << endl;
         registoryArray[position1] = registoryArray[position2] | registoryArray[position3];
         if (registoryArray[position1] > 0x7fffffff)
@@ -190,7 +187,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             C = 1;
         else
             C = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "SUB") || (operation == "sub") || (operation == "SUBS") || (operation == "subs"))
     {
@@ -212,7 +208,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             V = 1;
         else
             V = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
     else if((operation == "XOR") || (operation == "xor") || (operation == "XORS") || (operation == "xors"))
     {
@@ -234,12 +229,6 @@ void doMath(string operation, uint32_t registoryArray[], int position1, int posi
             V = 1;
         else
             V = 0;
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
-    }
-    else if ((operation == "MOV") || (operation == "mov"))                 
-    {
-        //call the operation function to execute the arthmetic operation)
-        cout << " N = " << N << " Z = " << Z << " C = " << C << " V = " << V << endl;
     }
 }
 void displayArray(uint32_t array[])
